@@ -15,10 +15,15 @@ class DogsTableViewViewController: UIViewController {
     lazy var tableView: UITableView = {
         let theTableView = UITableView()
         theTableView.dataSource = self
-        let nib = UINib(nibName: "DogTableViewCell", bundle: nil)
-        theTableView.register(nib, forCellReuseIdentifier: "dogTableViewCell")
+        
         //cells - we've created a cell variable that dequeues a cell IB item that we created in storyboard
-        //
+        //use this registering process if we need to use the interface builder file
+//        let nib = UINib(nibName: "DogTableViewCell", bundle: nil)
+//        theTableView.register(nib, forCellReuseIdentifier: "dogTableViewCell")
+        
+        //use this registering process if we are creating our cells programmatically
+        theTableView.register(DogTableViewCell.self, forCellReuseIdentifier: "lianasHappyCell")
+        
         return theTableView
     }()
         
@@ -47,7 +52,7 @@ extension DogsTableViewViewController: UITableViewDataSource {
         let dogBreed = Array(dogs.keys)[indexPath.row]
         let dogColor = dogs[Array(dogs.keys)[indexPath.row]]
         
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "dogTableViewCell", for: indexPath) as? DogTableViewCell else {return UITableViewCell()}
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "lianasHappyCell", for: indexPath) as? DogTableViewCell else {return UITableViewCell()}
         cell.breedLabel.text = dogBreed
         cell.backgroundColor = dogColor
         return cell
